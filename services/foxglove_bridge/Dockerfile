@@ -25,6 +25,11 @@ RUN . /opt/ros/noetic/setup.sh && \
       --ignore-src \
     && rm -rf /var/lib/apt/lists/*
 
+# HACK: Install libasio-dev until it is declared as a dependency in foxglove_bridge
+RUN apt-get update && apt-get install -y \
+    libasio-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 # Build the Catkin workspace
 RUN . /opt/ros/noetic/setup.sh && \
   cd /ros_ws && \
