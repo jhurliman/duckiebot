@@ -1,0 +1,47 @@
+version: '2'
+
+networks:
+  ros:
+    driver: bridge
+
+services:
+  roscore:
+    image: ros:noetic-ros-core
+    command: stdbuf -o L roscore
+    networks:
+      - ros
+    restart: always
+
+  talker:
+    image: ros:noetic-ros-core
+    depends_on:
+      - roscore
+    environment:
+      - "ROS_MASTER_URI=http://roscore:11311"
+    command: stdbuf -o L rostopic pub /chatter std_msgs/String "hello" -r 1
+    networks:
+      - ros
+    restart: always
+
+  listener:
+    image: ros:noetic-ros-core
+    depends_on:
+      - roscore
+    environment:
+      - "ROS_MASTER_URI=http://roscore:11311"
+    command: stdbuf -o L rostopic echo /chatter
+    networks:
+      - ros
+    restart: always
+
+  foxglove_bridge:
+    image: foxglove_bridge
+    build: ./services/foxglove_bridge
+    depends_on:
+      - roscore
+    environment:
+      - "ROS_MASTER_URI=http://roscore:11311"
+    command: stdbuf -o L rosrun foxglove_bridge foxglove_bridge
+    networks:
+      - ros
+    restart: always
