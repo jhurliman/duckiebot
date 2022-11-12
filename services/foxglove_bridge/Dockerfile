@@ -40,4 +40,5 @@ RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 RUN echo "source /ros_ws/devel/setup.bash" >> ~/.bashrc
 
 # Run foxglove_bridge node
-CMD ["rosrun", "foxglove_bridge", "foxglove_bridge"]
+CMD ["bash", "-c", "source ~/.bashrc && rosrun foxglove_bridge foxglove_bridge"]
+
