@@ -27,8 +27,8 @@ RUN . /opt/ros/noetic/setup.sh && \
 
 # Build the Catkin workspace
 RUN . /opt/ros/noetic/setup.sh && \
-  && cd /ros_ws \
-  && catkin_make
+  cd /ros_ws && \
+  catkin_make
 
 # Source ROS environments in .bashrc
 RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
