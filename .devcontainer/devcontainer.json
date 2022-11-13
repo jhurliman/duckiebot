@@ -1,0 +1,21 @@
+// -*- jsonc -*-
+{
+  // ROS 1 dev environment
+  "name": "ROS 1",
+  "workspaceFolder": "/ros_ws",
+  "workspaceMount": "source=${localWorkspaceFolder}/ros_ws,target=/ros_ws,type=bind,consistency=cached",
+  "dockerFile": "./Dockerfile",
+  "context": "..",
+  "forwardPorts": [
+    8765
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "xaver.clang-format",
+        "twxs.cmake"
+      ]
+    }
+  }
+}
